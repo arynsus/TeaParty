@@ -7,6 +7,7 @@ const modalVisible = ref(false)
 const modalTitle = ref('')
 const modalFormData = ref({})
 
+// 打开对话框，新建或编辑数据信息
 const openModal = (tea) => {
     modalTitle.value = tea ? `Edit ${tea.name}` : 'Add New Tea'
     modalFormData.value.id = tea ? tea.id : 'new'
@@ -18,10 +19,12 @@ const openModal = (tea) => {
     modalVisible.value = true;
 };
 
+// 关闭对话框
 const closeModal = () => {
     modalVisible.value = false
 }
 
+// 发送请求到后端，更新数据条目信息或者新建数据条目
 const handleSubmit = async () => {
     const res = await axios.post(`http://localhost:3000/edit/${modalFormData.value.id}`, modalFormData.value)
     if (res.data.success) {
@@ -39,7 +42,10 @@ const handleSubmit = async () => {
     }
 }
 
+// 对话框向上层开放 打开/关闭对话框 的方法
 defineExpose({ openModal, closeModal })
+
+// 对话框可向上级发送更新成功信息
 const emit = defineEmits(['success'])
 
 </script>

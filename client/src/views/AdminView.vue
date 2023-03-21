@@ -69,10 +69,13 @@ const deleteTea = async (teaToDelete) => {
         <a-button type="primary" status="normal" style="margin-bottom: 20px;" @click="editTeaModal.openModal()">Add tea</a-button>
     </a-space>
 
+    <!-- 数据表格 -->
     <a-table :data="teas" :loading="loading">
         <template #columns>
             <a-table-column v-if="teas.length > 0" v-for="key in Object.keys(teas[0])" :title="key"
                 :data-index="key"></a-table-column>
+
+            <!-- 额外添加一列功能键 -->
             <a-table-column title="Operation" data-index="Operation">
                 <template #cell="{ record }">
                     <a-space>
@@ -90,5 +93,6 @@ const deleteTea = async (teaToDelete) => {
         </template>
     </a-table>
 
+    <!-- 对话框表单更新成功后重新加载数据 -->
     <EditTeaModal ref="editTeaModal" @success="loadAllTeas" />
 </template>
